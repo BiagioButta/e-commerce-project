@@ -1,10 +1,10 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
 import { useLocalStorage } from "@vueuse/core";
 import router from '../router/index';
-import { auth, db, database } from '../firebase/init';
-import { addDoc, collection, doc, setDoc, getDoc } from "firebase/firestore"; 
+import { auth, db } from '../firebase/init';
+import { addDoc, collection, doc, setDoc } from "firebase/firestore"; 
 import { useGetDataFromDB } from "./getDataFromDB";
-import { getDatabase, ref, set } from "firebase/database";
+
 
 
 import {
@@ -84,12 +84,6 @@ export const useAuthStore = defineStore('authStore', {
                 this.email = "";
                 this.password = "",
                 this.confirmPassword = "";
-                
-                // const database = getDatabase();
-                // set(ref(database, 'user'), {
-                //     id: userDetails.user.uid,
-                //     email: userDetails.user.email,
-                // });
 
                 router.replace({name: 'user'})
             } catch (error) {

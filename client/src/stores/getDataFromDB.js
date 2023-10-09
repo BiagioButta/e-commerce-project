@@ -43,17 +43,10 @@ export const useGetDataFromDB = defineStore('getDataFromDB', {
         } 
     },
     getters: {
-      // getAllBrandsByCategory() {
-      //   return (categoryId) => {
-      //     const removeDuplicate = new Set();
-      //     this.products
-      //       .filter(product => product.categoryId === categoryId)
-      //       .forEach(product => removeDuplicate.add(product.brand))
-      //     return Array.from(removeDuplicate)
-      //   };
-      // },
+
     },
     actions: {
+      // prendo tutte le sezioni
       async getAllSections () {
           const querySnapshot = await getDocs(collection(db, "Sections"));
           querySnapshot.forEach((section) => {
@@ -63,15 +56,7 @@ export const useGetDataFromDB = defineStore('getDataFromDB', {
             console.log(section.id, " => ", section.data());
         });
       },
-      // async getAllSubSections () {
-      //   const querySnapshot = await getDocs(collection(db, "SubSections"));
-      //   querySnapshot.forEach((subSection) => {
-      //     if(!this.subSections.some(item => item.id === subSection.id)){
-      //       this.subSections.push({id: subSection.id, ...subSection.data()})
-      //     }
-      //     // console.log(subSection.id, " => ", subSection.data());
-      //   });
-      // },
+      // prendo tutte le subsezioni reelative alla sezione selezionata
       async getAllSubSections (sectionId) {
         this.subSections = []
         const subSectionsQuery = query(collection(db, "SubSections"), where("sectionId", "==", sectionId));
@@ -83,15 +68,7 @@ export const useGetDataFromDB = defineStore('getDataFromDB', {
           console.log("SUBCATEGORIE", subSection.id, " => ", subSection.data());
         });
       },
-      // async getAllCategories () {
-      //   const querySnapshot = await getDocs(collection(db, "Categories"));
-      //   querySnapshot.forEach((category) => {
-      //     if(!this.categories.some(item => item.id === category.id)){
-      //       this.categories.push({id: category.id, ...category.data()})
-      //     }
-      //     // console.log(category.id, " => ", category.data());
-      //   });
-      // },
+      // prendo tutte le categorie relative alla subsezione selezionata
       async getAllCategories (subSectionId) {
         this.categories = []
         const categoriesQuery = query(collection(db, "Categories"), where("subSectionId", "==", subSectionId));
@@ -103,7 +80,7 @@ export const useGetDataFromDB = defineStore('getDataFromDB', {
           console.log("CATEGORIE", category.id, " => ", category.data());
         });
       },
-    
+    // prendo i prodotti in base alla query inserita
       async getAllProductsByQuery(queryText) {
         
         queryText = queryText.trim().toLowerCase();
@@ -119,29 +96,7 @@ export const useGetDataFromDB = defineStore('getDataFromDB', {
           this.productsFilteredByQuery.push({ id: product.id, ...product.data() });
         });
       },
-
-  
-      
-      // async getAllProducts () {
-      //   const productsCollection = collection(db, "Products");
-      //   onSnapshot(productsCollection, (snapshot) => {
-      //     snapshot.docChanges().forEach((change) => {
-      //       const product = change.doc.data();
-      //       if (change.type === "added") {
-      //         if (!this.products.some(item => item.id === change.doc.id)) {
-      //           this.products.push({ id: change.doc.id, ...product });
-      //         }
-      //       } else if (change.type === "modified") {
-      //         const index = this.products.findIndex(item => item.id === change.doc.id);
-      //         if (index !== -1) {
-      //           this.products[index] = { id: change.doc.id, ...product };
-      //         }
-      //       } else if (change.type === "removed") {
-      //         this.products = this.products.filter(item => item.id !== change.doc.id);
-      //       }
-      //     });
-      //   });
-      // },
+      // prendo tutti i prodotti in base alla categoria selezionata
       async getAllProducts(categoryId) {
         this.products = []
         const productsCollection = collection(db, "Products");
@@ -175,7 +130,7 @@ export const useGetDataFromDB = defineStore('getDataFromDB', {
           });
         });
       },
-      
+      // prendo tuttii prodotti di un selezionato venditore
       async getAllSellerProducts() {
         const authStore = useAuthStore()
         this.sellerProducts = []
@@ -210,62 +165,7 @@ export const useGetDataFromDB = defineStore('getDataFromDB', {
           });
         });
       },
-      // async getProductById(productId) {
-      //   const productsCollection = collection(db, "Products");
-      //   const productDoc = doc(productsCollection, productId);
-      //   const productDocSnapshot = await getDoc(productDoc);
-
-      //   if (productDocSnapshot.exists()) {
-      //     const productData = productDocSnapshot.data();
-      //     const detailsCollection = collection(productDocSnapshot.ref, "details");
-      //     const detailsSnapshot = await getDocs(detailsCollection);
-      //     const details = detailsSnapshot.docs.map(detailDoc => detailDoc.data());
-      
-      //     const singleproduct = {
-      //       id: productId,
-      //       ...productData,
-      //       details: details
-      //     };
-      
-      //     this.singleProduct = singleproduct
-      //   } else {
-          
-      //     return null;
-      //   }
-      // },
-      // async getProductById(productId) {
-      //   const productsCollection = collection(db, "Products");
-      //   const productDoc = doc(productsCollection, productId);
-      
-      //   // Aggiungi l'ascolto dei cambiamenti in tempo reale al documento principale
-      //   const unsubscribeProduct = onSnapshot(productDoc, async (productDocSnapshot) => {
-      //     if (productDocSnapshot.exists()) {
-      //       const productData = productDocSnapshot.data();
-      //       const detailsCollection = collection(productDocSnapshot.ref, "details");
-      //       const detailsSnapshot = await getDocs(detailsCollection);
-      //       const details = detailsSnapshot.docs.map((detailDoc) => detailDoc.data());
-      
-      //       const singleProduct = {
-      //         id: productId,
-      //         ...productData,
-      //         details: details,
-      //       };
-      
-      //       this.singleProduct = singleProduct
-      //       // Esegui azioni con i dati del prodotto, ad esempio, aggiorna l'interfaccia utente
-      //       console.log("Dati aggiornati del prodotto:", singleProduct);
-      //     } else {
-      //       console.log("Il documento non esiste.");
-      //     }
-      //   }, (error) => {
-      //     console.error("Errore nell'ascolto del prodotto:", error);
-      //   });
-      
-      //   // Restituisci una funzione che può essere utilizzata per scollegare l'ascolto del documento principale
-      //   return () => {
-      //     unsubscribeProduct();
-      //   };
-      // },
+      // prendo un prodotto dal suo id
       async getProductById(productId) {
         const productsCollection = collection(db, "Products");
         const productDoc = doc(productsCollection, productId);
@@ -322,8 +222,6 @@ export const useGetDataFromDB = defineStore('getDataFromDB', {
               console.log("Recensioni aggiornate:", singleProduct.review);
             }
       
-      
-      
             // Assegna il risultato a singleProduct
             this.singleProduct = singleProduct;
           } else {
@@ -338,9 +236,7 @@ export const useGetDataFromDB = defineStore('getDataFromDB', {
           unsubscribeProduct();
         };
       },
-      
-      
-      
+      // prendo gli ordini dell'utente loggato
       async getOrdersByUserId () {
         const authStore = useAuthStore();
         const q = query(collection(db, "orders"), where("userId", "==", authStore.user.id), orderBy("createdAt", "desc"));
@@ -352,45 +248,7 @@ export const useGetDataFromDB = defineStore('getDataFromDB', {
           console.log(order.id, " => ", order.data());
         })
       },
-
-      // async getProductIdByOrderWithProductData() {
-      //   const authStore = useAuthStore();
-      //   const q = query(collection(db, "orders"), where("userId", "==", authStore.user.id));
-      //   const querySnapshot = await getDocs(q);
-      //   const productIds = new Set(); // Utilizza un set per tenere traccia degli ID dei prodotti univoci
-      
-      //   querySnapshot.forEach(async (order) => {
-      //     if (!this.orders.some(item => item.id === order.id)) {
-      //       const orderDetails = order.data().orderDetails;
-      //       const orderProductIds = orderDetails.map(detail => detail.productId);
-      //       orderProductIds.forEach(productId => productIds.add(productId)); // Aggiungi gli ID dei prodotti al set
-      //     }
-      //   });
-      
-      //   const productsData = [];
-      //   for (const productId of productIds) {
-      //     const productDocRef = doc(db, "Products", productId);
-      //     const productDocSnapshot = await getDoc(productDocRef);
-      //     if (productDocSnapshot.exists()) {
-      //       const productData = productDocSnapshot.data();
-      //       const detailsCollection = collection(productDocRef, "details");
-      //       const detailsSnapshot = await getDocs(detailsCollection);
-      //       const details = detailsSnapshot.docs.map(detailDoc => detailDoc.data());
-      
-      //       const productWithDetails = {
-      //         id: productDocSnapshot.id,
-      //         ...productData,
-      //         details: details
-      //       };
-      
-      //       productsData.push(productWithDetails); // Aggiungi l'oggetto prodotto con dettagli all'array principale
-      //     }
-      //   }
-      
-      //   this.productByOrder = productsData; // Assegna l'array di oggetti prodotto con dettagli all'array desiderato
-      //   console.log(this.productByOrder);
-      // },
-
+      // prendo i dati dei prodotti presenti negli ordini dell'utente loggato
       async getProductIdByOrderWithProductData() {
         const authStore = useAuthStore();
         const q = query(collection(db, "orders"), where("userId", "==", authStore.user.id));
@@ -435,11 +293,7 @@ export const useGetDataFromDB = defineStore('getDataFromDB', {
         this.productByOrder = productsData;
         console.log(this.productByOrder);
       },
-      
-      // async getUserNameByPostUserId() {
-
-      // },
-      
+      // prendo i datidell' utente loggato
       async getUserData() {
         const authStore = useAuthStore();
         this.user = []
@@ -475,8 +329,7 @@ export const useGetDataFromDB = defineStore('getDataFromDB', {
           console.log("authStore.user.id non è definito o non valido o utente non loggato");
         }
       },
-      
-      
+      // prendo le opzioni di filtraggio dei dati dai dati caricati tramite categoria
       async getFilterOptions(categoryId) {
         const q = query(collection(db, "Products"), where("categoryId", "==", categoryId));
         const querySnapshot = await getDocs(q);
@@ -543,6 +396,7 @@ export const useGetDataFromDB = defineStore('getDataFromDB', {
         // console.log("composers values:", this.composersFilterOption);
         // console.log("producers values:", this.producersFilterOption);
       },
+      // prendo i prodtto ordinati per rating
       async getProductByRating() {
         this.productsSortByRating = []
         const productsCollection = collection(db, "Products");
@@ -576,6 +430,7 @@ export const useGetDataFromDB = defineStore('getDataFromDB', {
           });
         });
       },     
+      // prendo i prodotti ordinati per sconto
       async getProductByDiscount() {
         this.productsSortByDiscount = []
         const productsCollection = collection(db, "Products");
@@ -609,6 +464,7 @@ export const useGetDataFromDB = defineStore('getDataFromDB', {
           });
         });
       },    
+      // prendo i prodotti ordinati per numero di volte che sono stati venduti
       async getProductByNsales() {
         this.productsSortBySales = []
         const productsCollection = collection(db, "Products");
