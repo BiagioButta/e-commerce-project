@@ -8,13 +8,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emailjs/browser": "^3.11.0",
     "@fortawesome/fontawesome-free": "^6.4.2",
+    "@stripe/stripe-js": "^2.1.7",
     "@vueuse/core": "^10.5.0",
+    "emailjs-com": "^3.2.0",
     "firebase": "^10.4.0",
+    "gli": "^0.0.1",
+    "per": "^2.0.2",
     "pinia": "^2.1.6",
     "sass": "^1.69.0",
+    "slider": "^1.0.4",
     "vue": "^3.3.4",
-    "vue-router": "^4.2.4"
+    "vue-router": "^4.2.4",
+    "vue-star-rating": "^2.1.0",
+    "vue3-carousel": "^0.3.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.3.4",

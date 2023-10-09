@@ -1,0 +1,3 @@
+<template>
+    NON autorizzato
+</template>
