@@ -239,7 +239,7 @@ export const useGetDataFromDB = defineStore('getDataFromDB', {
       // prendo gli ordini dell'utente loggato
       async getOrdersByUserId () {
         const authStore = useAuthStore();
-        const q = query(collection(db, "orders"), where("userId", "==", authStore.user.id), orderBy("createdAt", "desc"));
+        const q = query(collection(db, "orders"), where("userId", "==", authStore.user.id), orderBy("createdAt", 'desc'));
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((order) => {
           if(!this.orders.some(item => item.id === order.id)){

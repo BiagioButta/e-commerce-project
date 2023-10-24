@@ -255,7 +255,7 @@ export default {
             userId: authStore.user.id,
             userEmail: authStore.user.email,
             orderDetails: cartItems,
-            total: this.cartTotal,
+            total: Number(this.cartTotal),
             createdAt: serverTimestamp()
 
           })
