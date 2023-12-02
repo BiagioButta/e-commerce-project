@@ -1,8 +1,12 @@
-@use './Partials/header.scss' as*;
-@use './Partials/textStyle.scss' as*;
-@use './Partials/subSectionListStyle.scss' as*;
-@use './Partials/categoryListStyle.scss' as*;
-@use './Partials/productCardListStyle.scss' as*;
+// @use './Partials/header.scss' as*;
+// @use './Partials/textStyle.scss' as*;
+// @use './Partials/subSectionListStyle.scss' as*;
+// @use './Partials/categoryListStyle.scss' as*;
+// @use './Partials/productCardListStyle.scss' as*;
+
+@use './Partials/bootstrap.css' as*;
+@use './Partials/style.scss' as*;
+
 
 @import '@fortawesome/fontawesome-free/scss/fontawesome.scss';
 @import '@fortawesome/fontawesome-free/scss/solid.scss';
@@ -10,25 +14,25 @@
 
 *{
     // border: 1px solid black;
-    font-family: 'IBM Plex Serif', serif;
-    color: black;
+    // font-family: 'IBM Plex Serif', serif;
+    // color: black;
 }
 
-.container{
-    width: 100%;
-}
+// .container{
+//     width: 100%;
+// }
 
-a{
-    list-style: none;
-    text-decoration: none;
-}
+// a{
+//     list-style: none;
+//     text-decoration: none;
+// }
 
-i{
-    border: 0;
-    margin: 2px;
-}
+// i{
+//     border: 0;
+//     margin: 2px;
+// }
 
-.sticky-top{
-    position: sticky;
-    top: 0;
-}
+// .sticky-top{
+//     position: sticky;
+//     top: 0;
+// }

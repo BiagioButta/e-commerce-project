@@ -77,13 +77,13 @@ export default {
    
   },
   async mounted() {
-    this.getDataFromDB.getProductByRating()
-    this.getDataFromDB.getProductByDiscount()
-    this.getDataFromDB.getProductByNsales()
+    // this.getDataFromDB.getProductByRating()
+    // this.getDataFromDB.getProductByDiscount()
+    // this.getDataFromDB.getProductByNsales()
 
-    if(this.getDataFromDB.productByOrder.length === 0 && this.isLogged){
-      await this.getDataFromDB.getProductIdByOrderWithProductData()
-    }
+    // if(this.getDataFromDB.productByOrder.length === 0 && this.isLogged){
+    //   await this.getDataFromDB.getProductIdByOrderWithProductData()
+    // }
     
     this.isLoading = false
   }
