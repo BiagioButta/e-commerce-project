@@ -13,6 +13,7 @@ export const useGetDataFromDB = defineStore('getDataFromDB', {
           sections: useLocalStorage("getDataFromDB:sections", []),
           subSections: useLocalStorage("getDataFromDB:subSections", []),
           categories: useLocalStorage("getDataFromDB:categories", []),
+          nestedData: useLocalStorage("getDataFromDB:nestedData", []),
           // products: useLocalStorage("getDataFromDB:products", []),
           // orders: useLocalStorage("getDataFromDB:orders", []),
           // user: [],
@@ -79,6 +80,50 @@ export const useGetDataFromDB = defineStore('getDataFromDB', {
           }
           console.log("CATEGORIE", category.id, " => ", category.data());
         });
+      },
+
+      // menu list
+      async getAllNestedData() {
+        console.log("Inizio getAllNestedData");
+      
+        // Verifica se nestedData è già popolato
+        if (!this.nestedData || this.nestedData.length === 0) {
+          await this.getAllSections();
+          console.log("Sezioni ottenute:", this.sections);
+      
+          const nestedData = [];
+      
+          for (const section of this.sections) {
+            await this.getAllSubSections(section.id);
+            console.log(`Sottosezioni ottenute per la sezione ${section.id}:`, this.subSections);
+      
+            const sectionData = {
+              section,
+              subSections: [],
+            };
+      
+            for (const subSection of this.subSections) {
+              await this.getAllCategories(subSection.id);
+              console.log(`Categorie ottenute per la sottosezione ${subSection.id}:`, this.categories);
+      
+              const subSectionData = {
+                subSection,
+                categories: this.categories.filter(category => category.subSectionId === subSection.id),
+              };
+      
+              sectionData.subSections.push(subSectionData);
+            }
+      
+            nestedData.push(sectionData);
+          }
+      
+          console.log("Risultato finale di getAllNestedData:", nestedData);
+      
+          // Salva i dati solo se nestedData non è già popolato
+          this.nestedData = nestedData;
+        }
+      
+        console.log("Fine getAllNestedData");
       },
     // prendo i prodotti in base alla query inserita
       async getAllProductsByQuery(queryText) {

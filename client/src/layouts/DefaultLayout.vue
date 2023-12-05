@@ -1,7 +1,7 @@
 <template>
+            <AppHeader/>
     <div class="main-container">
         <div id="main-section-header">
-            <AppHeader/>
         </div>
 
         <div id="main-section-container">
@@ -17,13 +17,13 @@
                 <slot/>
             </div>
 
-            <div id="sidebar-dx">
+            <!-- <div id="sidebar-dx">
                 <sidebar-dx class="sticky-top"></sidebar-dx>        
-            </div>
+            </div> -->
         </div>
         
-        <AppFooter/>
     </div>
+        <AppFooter/>
 </template>
 
 <script setup>

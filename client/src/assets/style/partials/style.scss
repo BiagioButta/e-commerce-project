@@ -1975,7 +1975,7 @@ blockquote {
 
       &::after {
         font-family: 'molla';
-        content: '\f110';
+        content: '\2193';
         position: absolute;
         right: 0;
         top: 50%;
@@ -3023,16 +3023,6 @@ blockquote {
   .header-bottom {
     .container, .container-fluid {
       display: block;
-    }
-
-    .container::after, .container-fluid::after {
-      content: '';
-      position: absolute;
-      top: 1.95rem;
-      bottom: 1.95rem;
-      right: 16%;
-      width: .1rem;
-      background-color: #fff;
     }
   }
 
@@ -4523,6 +4513,7 @@ a {
 
 .btn-product {
   color: #fcb941;
+  padding: 10px;
 
   &:hover span, &:focus span {
     color: #fcb941;
@@ -10419,6 +10410,7 @@ a {
 .product-price {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-flow: wrap;
   font-weight: 400;
   font-size: 1.6rem;
@@ -10528,6 +10520,7 @@ a {
 
 .ratings-container {
   display: flex;
+  justify-content: center;
   align-items: center;
   font-size: 1.3rem;
   margin-bottom: 1.7rem;
@@ -10551,10 +10544,6 @@ a {
   letter-spacing: 0.1em;
   line-height: 1;
   font-family: "molla";
-}
-
-.ratings:before {
-  content: "\f318" "\f318" "\f318" "\f318" "\f318";
 }
 
 .ratings-val {
@@ -10594,7 +10583,8 @@ a {
   right: 0;
   bottom: 0;
   display: flex;
-  align-items: center;
+  flex: 1;
+  justify-content: center;
   background-color: rgba(255, 255, 255, 0.95);
   z-index: 10;
   transition: all .35s ease;
@@ -10774,13 +10764,6 @@ a {
   }
 }
 
-.btn-quickview:before {
-  content: '\f145';
-}
-
-.btn-compare:before {
-  content: '\f2d0';
-}
 
 .btn-expandable {
   position: relative;
@@ -11716,7 +11699,9 @@ a {
     }
 
     .product-list-action {
-      padding: 3.4rem 0 0;
+      // padding: 3.4rem 0 0;
+      display: flex;
+      flex-direction: column;
     }
 
     .product-content {
