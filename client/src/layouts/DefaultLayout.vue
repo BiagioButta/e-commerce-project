@@ -1,6 +1,10 @@
 <template>
-            <AppHeader/>
-    <div class="main-container">
+    <AppHeader/>
+        <div id="main-width-70x100">
+            <slot/>
+        </div>
+    <AppFooter/>
+    <!-- <div class="main-container">
         <div id="main-section-header">
         </div>
 
@@ -17,13 +21,12 @@
                 <slot/>
             </div>
 
-            <!-- <div id="sidebar-dx">
+            <div id="sidebar-dx">
                 <sidebar-dx class="sticky-top"></sidebar-dx>        
-            </div> -->
+            </div>
         </div>
         
-    </div>
-        <AppFooter/>
+    </div> -->
 </template>
 
 <script setup>

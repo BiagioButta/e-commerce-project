@@ -15102,7 +15102,7 @@ button:focus {
 
     &:after {
       color: #333333;
-      content: '\f110';
+      content: '\2193';
       display: block;
       font-family: 'molla';
       font-size: 1.4rem;
@@ -15114,7 +15114,7 @@ button:focus {
     }
 
     &.collapsed:after {
-      content: '\e802';
+      content: '\2191';
     }
 
     &:focus {

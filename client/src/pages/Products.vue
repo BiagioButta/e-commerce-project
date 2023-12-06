@@ -1,10 +1,11 @@
 <template>
-<body>
+
+<default-layout>
     <div class="page-wrapper">
         <main class="main">
         	<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
         		<div class="container">
-        			<h1 class="page-title">List<span>Shop</span></h1>
+        			<h1 class="page-title">{{ categoryTitle }}</h1>
         		</div><!-- End .container -->
         	</div><!-- End .page-header -->
             <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
@@ -24,7 +25,7 @@
                 			<div class="toolbox">
                 				<div class="toolbox-left">
                 					<div class="toolbox-info">
-                						Showing <span>9 of 56</span> Products
+                						Mostrati <span>{{ visibleItems }} di {{ filteredProducts.length }}</span> Prodotti
                 					</div><!-- End .toolbox-info -->
                 				</div><!-- End .toolbox-left -->
 
@@ -94,41 +95,30 @@
                                 :product="product"
                                 />
                             </div><!-- End .products -->
+						
+                            <div 
+                            class="load-more-button" 
+                            v-if="this.visibleItems < this.filteredProducts.length"
+                            >
+                                <button @click="loadMoreItems">Carica più prodotti</button>
+                            </div>
 
-                			<nav aria-label="Page navigation">
-							    <ul class="pagination">
-							        <li class="page-item disabled">
-							            <a class="page-link page-link-prev" href="#" aria-label="Previous" tabindex="-1" aria-disabled="true">
-							                <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Prev
-							            </a>
-							        </li>
-							        <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
-							        <li class="page-item"><a class="page-link" href="#">2</a></li>
-							        <li class="page-item"><a class="page-link" href="#">3</a></li>
-							        <li class="page-item-total">of 6</li>
-							        <li class="page-item">
-							            <a class="page-link page-link-next" href="#" aria-label="Next">
-							                Next <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
-							            </a>
-							        </li>
-							    </ul>
-							</nav>
                 		</div><!-- End .col-lg-9 -->
                 		<aside class="col-lg-3 order-lg-first">
                 			<div class="sidebar sidebar-shop">
                 				<div class="widget widget-clean">
-                					<label>Filters:</label>
-                					<a href="#" class="sidebar-filter-clear">Rimuovi filtri</a>
+                					<label>Filtri:</label>
+                                    <button class="sidebar-filter-clear" @click="clearAllFilters">Rimuovi filtri</button>
                 				</div><!-- End .widget widget-clean -->
 
                 				<div class="widget widget-collapsible">
-    								<h3 class="widget-title">
+    								<h3 class="widget-title" @click="toggleWidget">
 									    <a data-toggle="collapse" href="#widget-1" role="button" aria-expanded="true" aria-controls="widget-1">
 									        Stelle
 									    </a>
 									</h3><!-- End .widget-title -->
 
-									<div class="collapse show" id="widget-1">
+									<div class="collapse" :class="{ 'show': isWidgetOpen }" id="widget-1">
 										<div class="widget-body">
 											<div class="filter-items filter-items-count">
 												<div class="filter-item">
@@ -144,13 +134,13 @@
         						</div><!-- End .widget -->
 
                                 <div class="widget widget-collapsible">
-    								<h3 class="widget-title">
+    								<h3 class="widget-title" @click="toggleWidget">
 									    <a data-toggle="collapse" href="#widget-2" role="button" aria-expanded="true" aria-controls="widget-2">
 									        Prezzo
 									    </a>
 									</h3><!-- End .widget-title -->
 
-									<div class="collapse show" id="widget-2">
+									<div class="collapse" :class="{ 'show': isWidgetOpen }" id="widget-2">
 										<div class="widget-body">
 											<div class="filter-items">
 												<div class="filter-item">
@@ -165,13 +155,13 @@
         						</div><!-- End .widget -->
 
         						<div v-if="isBook || isVG" class="widget widget-collapsible">
-    								<h3 class="widget-title">
-									    <a data-toggle="collapse" href="#widget-2" role="button" aria-expanded="true" aria-controls="widget-2">
+    								<h3 class="widget-title" @click="toggleWidget">
+									    <a data-toggle="collapse" href="#widget-3" role="button" aria-expanded="true" aria-controls="widget-3">
 									        Brand
 									    </a>
 									</h3><!-- End .widget-title -->
 
-									<div class="collapse show" id="widget-2">
+									<div class="collapse" :class="{ 'show': isWidgetOpen }" id="widget-3">
 										<div class="widget-body">
 											<div class="filter-items">
 												<div class="filter-item">
@@ -186,13 +176,13 @@
         						</div><!-- End .widget -->
 
                                 <div v-if="isCD" class="widget widget-collapsible">
-    								<h3 class="widget-title">
-									    <a data-toggle="collapse" href="#widget-2" role="button" aria-expanded="true" aria-controls="widget-2">
+    								<h3 class="widget-title" @click="toggleWidget">
+									    <a data-toggle="collapse" href="#widget-4" role="button" aria-expanded="true" aria-controls="widget-4">
 									        Compositore
 									    </a>
 									</h3><!-- End .widget-title -->
 
-									<div class="collapse show" id="widget-2">
+									<div class="collapse" :class="{ 'show': isWidgetOpen }" id="widget-4">
 										<div class="widget-body">
 											<div class="filter-items">
 												<div class="filter-item">
@@ -207,13 +197,13 @@
         						</div><!-- End .widget -->
 
                                 <div v-if="isBook || isVG" class="widget widget-collapsible">
-    								<h3 class="widget-title">
-									    <a data-toggle="collapse" href="#widget-2" role="button" aria-expanded="true" aria-controls="widget-2">
+    								<h3 class="widget-title" @click="toggleWidget">
+									    <a data-toggle="collapse" href="#widget-5" role="button" aria-expanded="true" aria-controls="widget-5">
 									        Lingua
 									    </a>
 									</h3><!-- End .widget-title -->
 
-									<div class="collapse show" id="widget-2">
+									<div class="collapse" :class="{ 'show': isWidgetOpen }" id="widget-5">
 										<div class="widget-body">
 											<div class="filter-items">
 												<div class="filter-item">
@@ -228,13 +218,13 @@
         						</div><!-- End .widget -->
 
                                 <div v-if="isBook || isVG" class="widget widget-collapsible">
-    								<h3 class="widget-title">
-									    <a data-toggle="collapse" href="#widget-2" role="button" aria-expanded="true" aria-controls="widget-2">
+    								<h3 class="widget-title" @click="toggleWidget">
+									    <a data-toggle="collapse" href="#widget-6" role="button" aria-expanded="true" aria-controls="widget-6">
 									        Autore
 									    </a>
 									</h3><!-- End .widget-title -->
 
-									<div class="collapse show" id="widget-2">
+									<div class="collapse" :class="{ 'show': isWidgetOpen }" id="widget-6">
 										<div class="widget-body">
 											<div class="filter-items">
 												<div class="filter-item">
@@ -249,13 +239,13 @@
         						</div><!-- End .widget -->
 
                                 <div v-if="isCD" class="widget widget-collapsible">
-    								<h3 class="widget-title">
-									    <a data-toggle="collapse" href="#widget-2" role="button" aria-expanded="true" aria-controls="widget-2">
+    								<h3 class="widget-title" @click="toggleWidget">
+									    <a data-toggle="collapse" href="#widget-7" role="button" aria-expanded="true" aria-controls="widget-7">
 									        Produttore
 									    </a>
 									</h3><!-- End .widget-title -->
 
-									<div class="collapse show" id="widget-2">
+									<div class="collapse" :class="{ 'show': isWidgetOpen }" id="widget-7">
 										<div class="widget-body">
 											<div class="filter-items">
 												<div class="filter-item">
@@ -270,13 +260,13 @@
         						</div><!-- End .widget -->
 
                                 <div v-if="isVG" class="widget widget-collapsible">
-    								<h3 class="widget-title">
-									    <a data-toggle="collapse" href="#widget-2" role="button" aria-expanded="true" aria-controls="widget-2">
+    								<h3 class="widget-title" @click="toggleWidget">
+									    <a data-toggle="collapse" href="#widget-8" role="button" aria-expanded="true" aria-controls="widget-8">
 									        PEGI
 									    </a>
 									</h3><!-- End .widget-title -->
 
-									<div class="collapse show" id="widget-2">
+									<div class="collapse" :class="{ 'show': isWidgetOpen }" id="widget-8">
 										<div class="widget-body">
 											<div class="filter-items">
 												<div class="filter-item">
@@ -291,13 +281,13 @@
         						</div><!-- End .widget -->
 
                                 <div v-if="isVG" class="widget widget-collapsible">
-    								<h3 class="widget-title">
-									    <a data-toggle="collapse" href="#widget-2" role="button" aria-expanded="true" aria-controls="widget-2">
+    								<h3 class="widget-title" @click="toggleWidget">
+									    <a data-toggle="collapse" href="#widget-9" role="button" aria-expanded="true" aria-controls="widget-9">
 									        Piattaforma
 									    </a>
 									</h3><!-- End .widget-title -->
 
-									<div class="collapse show" id="widget-2">
+									<div class="collapse" :class="{ 'show': isWidgetOpen }" id="widget-9">
 										<div class="widget-body">
 											<div class="filter-items">
 												<div class="filter-item">
@@ -490,9 +480,10 @@
             </div><!-- End .social-icons -->
         </div><!-- End .mobile-menu-wrapper -->
     </div><!-- End .mobile-menu-container -->
-</body>
-    <default-layout>
-        <!-- <template v-slot:sidebar-sx-categoryList>
+</default-layout>
+
+    <!-- <default-layout>
+        <template v-slot:sidebar-sx-categoryList>
             <div class="sidebar">
               <h2>Cerca anche in</h2>
               <ul>
@@ -505,8 +496,8 @@
                 </RouterLink>
               </ul>
             </div>
-        </template> -->
-        <!-- <template v-slot:sidebar-sx-productFilter>
+        </template>
+        <template v-slot:sidebar-sx-productFilter>
             <div>
                 <div class="sidebar">
                     <h2>Rating</h2>
@@ -631,7 +622,7 @@
                     </ul>
                 </div>
             </div>
-        </template> -->
+        </template>
             
                 <h1 class="category-title">{{ categoryTitle }}</h1>
 
@@ -668,7 +659,7 @@
                     <button @click="loadMoreItems">Carica più prodotti</button>
                 </div>
            
-    </default-layout>
+    </default-layout> -->
 </template>
 
 <script>
@@ -705,6 +696,7 @@ import { useLocalStorage } from "@vueuse/core";
                 selectedPlatform: [],
                 itemsPage: 12,
                 visibleItems: 12,
+                isWidgetOpen: true
             }
         },
         props: {
@@ -833,6 +825,9 @@ import { useLocalStorage } from "@vueuse/core";
             removeSelectedFilter(selectedArrayName, index) {
                 this[selectedArrayName].splice(index, 1);
             },
+            toggleWidget() {
+                this.isWidgetOpen = !this.isWidgetOpen
+            }
         },
         watch: {
             id(newId) {
@@ -848,7 +843,7 @@ import { useLocalStorage } from "@vueuse/core";
 </script>
 
 <style lang="scss" scoped>
-
+/*
 .category-title{
     background-color: white;
 }
@@ -901,5 +896,5 @@ import { useLocalStorage } from "@vueuse/core";
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
+*/
 </style>
