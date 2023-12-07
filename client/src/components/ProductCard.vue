@@ -33,7 +33,7 @@
                     </div><!-- End .rating-container -->
                     <div class="product-action">
                         <router-link class="btn-product btn-quickview" :to="{ name: 'singleProduct', params: { id: product.id } }"><i class="fa-solid fa-binoculars"></i><span>Vedi dettagli</span></router-link>
-                        <div class="btn-product btn-quickview"><i class="fa-regular fa-heart"></i><span>Aggiungi ai preferiti</span></div>
+                        <div @click="addToSubCart(product)" class="btn-product btn-quickview"><i class="fa-regular fa-heart"></i><span>Aggiungi ai preferiti</span></div>
                     </div><!-- End .product-action -->
                     <a href="#" class="btn-product btn-cart"><span>Aggiungi al carrello</span></a>
                 </div><!-- End .product-list-action -->
@@ -67,12 +67,16 @@
 <script>
 import { useRouter } from 'vue-router';
 import StarRating from 'vue-star-rating'
+import { useSubCartStore } from '../stores/subCartStore';
+import { useCartStore } from '../stores/cartStore';
     export default {
         components: {
             StarRating
         },
         data() {
             return {
+                subCartStore: useSubCartStore(),
+                cartStore: useCartStore(), 
                 incrementStar: 0.1,
                 sizeStar: 15,
             }
@@ -102,6 +106,10 @@ import StarRating from 'vue-star-rating'
             currentRoute(route) {
               const router = useRouter();
               return router.currentRoute.value.path === route;
+            },
+            addToSubCart(){
+                this.subCartStore.addToSubCart(this.product)
+                console.log("Prodotto salvato nella wishlist")
             },
         },
     }

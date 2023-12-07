@@ -52,11 +52,44 @@
                           </div><!-- End .col-xxl-4-5col -->
                           <div class="col-lg-4 col-xxl-5col d-flex justify-content-end align-items-center">
                               <div class="header-dropdown-link">
-                                  <a href="wishlist.html" class="wishlist-link">
-                                      <i class="fa-regular fa-heart"></i>
-                                      <span class="wishlist-count">3</span>
-                                      <span class="wishlist-txt">Wishlist</span>
-                                  </a>
+                                  <div class="dropdown cart-dropdown">
+                                      <a href="#" class="dropdown-toggle wishlist-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                                            <i class="fa-regular fa-heart"></i>
+                                            <span class="wishlist-count">{{ subCart.length }}</span>
+                                            <span class="wishlist-txt">Wishlist</span>
+                                      </a>
+                                      <div class="dropdown-menu dropdown-menu-right">
+                                          <div class="dropdown-cart-products">
+                                            <div class="dropdown-cart-products">
+                                            <div 
+                                            v-for="product in subCart"
+                                            :key="product.id"
+                                            class="product"
+                                            >
+                                                    <div class="product-cart-details">
+                                                        <h4 class="product-title">
+                                                            <a href="product.html">{{ product.title }}</a>
+                                                        </h4>
+                                                        <span class="cart-product-info">
+                                                            <span class="cart-product-qty">{{ product.quantity }} X</span>
+                                                            {{ product.price }} €
+                                                        </span>
+                                                    </div><!-- End .product-cart-details -->
+                                                    <figure class="product-image-container">
+                                                        <a href="product.html" class="product-image">
+                                                            <img :src="product.coverImg" alt="product">
+                                                        </a>
+                                                    </figure>
+                                                    <a href="#" class="btn-remove" title="Remove Product"><i class="fa-solid fa-xmark"></i></a>
+                                                </div><!-- End .product -->
+                                            </div><!-- End .cart-product -->
+                                          </div><!-- End .cart-product -->
+                                          <div class="dropdown-cart-action justify-content-center">
+                                            <button class="btn btn-primary mt-2">Aggiungi al carrello</button>
+                                          </div><!-- End .dropdown-cart-total -->
+                                      </div><!-- End .dropdown-menu -->
+                                  </div><!-- End .cart-dropdown -->
+
                                   <div class="dropdown cart-dropdown">
                                       <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                         <i class="fa-solid fa-cart-shopping"></i>
@@ -146,6 +179,7 @@
 <script>
 import { useGetDataFromDB } from '../stores/getDataFromDB';
 import { useCartStore } from '../stores/cartStore';
+import { useSubCartStore } from '../stores/subCartStore';
 import SectionsList from './SectionsList.vue';
 import TheNavbar from './TheNavbar.vue';
 
@@ -158,6 +192,7 @@ export default {
     return {
       getDataFromDB: useGetDataFromDB(),
       cartStore: useCartStore(),
+      subCartStore: useSubCartStore(),
       openSections: [],
       isDropdownVisible: false
     }
@@ -197,6 +232,9 @@ export default {
     cartTotal() { 
       return this.cartStore.cartTotal;
     },
+    subCart() {
+        return this.subCartStore.subCart
+    }
   },
   mounted(){  
     this.getDataFromDB.getAllNestedData();  

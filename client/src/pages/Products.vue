@@ -19,10 +19,11 @@
             </nav><!-- End .breadcrumb-nav -->
 
             <div class="page-content">
-                <div class="container">
-                	<div class="row">
-                		<div class="col-lg-9">
-                			<div class="toolbox">
+                <div class="width-70pc">
+                    <div class="container">
+                	    <div class="row">
+                	    	<div class="col-lg-9">
+                			    <div class="toolbox">
                 				<div class="toolbox-left">
                 					<div class="toolbox-info">
                 						Mostrati <span>{{ visibleItems }} di {{ filteredProducts.length }}</span> Prodotti
@@ -84,27 +85,27 @@
                 						</a>
                 					</div><!-- End .toolbox-layout -->
                 				</div><!-- End .toolbox-right -->
-                			</div><!-- End .toolbox -->
+                			    </div><!-- End .toolbox -->
 
-                            <div 
-                            id="products mb-3"
-                            >
-                                <ProductCard 
-                                v-for="product in filteredProducts.slice(0, visibleItems)"
-                                :key="product.id"
-                                :product="product"
-                                />
-                            </div><!-- End .products -->
+                                <div 
+                                id="products mb-3"
+                                >
+                                    <ProductCard 
+                                    v-for="product in filteredProducts.slice(0, visibleItems)"
+                                    :key="product.id"
+                                    :product="product"
+                                    />
+                                </div><!-- End .products -->
 						
-                            <div 
-                            class="load-more-button" 
-                            v-if="this.visibleItems < this.filteredProducts.length"
-                            >
-                                <button @click="loadMoreItems">Carica più prodotti</button>
-                            </div>
+                                <div 
+                                class="load-more-button" 
+                                v-if="this.visibleItems < this.filteredProducts.length"
+                                >
+                                    <button @click="loadMoreItems">Carica più prodotti</button>
+                                </div>
 
-                		</div><!-- End .col-lg-9 -->
-                		<aside class="col-lg-3 order-lg-first">
+                	    	</div><!-- End .col-lg-9 -->
+                	    	<aside class="col-lg-3 order-lg-first">
                 			<div class="sidebar sidebar-shop">
                 				<div class="widget widget-clean">
                 					<label>Filtri:</label>
@@ -302,9 +303,10 @@
         						</div><!-- End .widget -->
         						
                 			</div><!-- End .sidebar sidebar-shop -->
-                		</aside><!-- End .col-lg-3 -->
-                	</div><!-- End .row -->
-                </div><!-- End .container -->
+                	    	</aside><!-- End .col-lg-3 -->
+                	    </div><!-- End .row -->
+                    </div><!-- End .container -->
+                </div>
             </div><!-- End .page-content -->
         </main><!-- End .main -->
     </div><!-- End .page-wrapper -->
@@ -843,6 +845,10 @@ import { useLocalStorage } from "@vueuse/core";
 </script>
 
 <style lang="scss" scoped>
+.width-70pc {
+    width: 70%;
+    margin: 0 auto;
+}
 /*
 .category-title{
     background-color: white;

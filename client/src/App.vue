@@ -19,8 +19,8 @@ onMounted(async()=>{
 </template>
 
 <style scoped>
-  main{
+  /* main{
     width: 100%;
     display: flex;
-  }
+  } */
 </style>

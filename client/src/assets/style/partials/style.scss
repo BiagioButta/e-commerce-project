@@ -2097,9 +2097,6 @@ blockquote {
   }
 }
 
-/* Menu Style */
-
-/* Menu Hover Style */
 
 /* Header Bottom  - Menu position in header-bottom */
 
@@ -10593,6 +10590,7 @@ a {
   opacity: 0;
   visibility: hidden;
   transform: translateY(100%);
+  cursor: pointer;
 }
 
 .product {
@@ -12989,7 +12987,7 @@ small.form-text {
       background-image: none;
       font-size: 1rem;
       font-family: 'molla';
-      content: '\ec2d';
+      content: '\2713';
       line-height: 1;
       text-align: center;
       opacity: 0;

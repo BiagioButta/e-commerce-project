@@ -1,8 +1,6 @@
 <template>
     <AppHeader/>
-        <div id="main-width-70x100">
-            <slot/>
-        </div>
+        <slot/>
     <AppFooter/>
     <!-- <div class="main-container">
         <div id="main-section-header">
@@ -37,7 +35,7 @@ import SidebarSx from '../components/SidebarSx.vue';
 </script>
 
 <style lang="scss" scoped>
-
+/*
 .main-container{
     display: flex;
     flex-direction: column;
@@ -66,7 +64,7 @@ import SidebarSx from '../components/SidebarSx.vue';
         }
     }
 }
-
+*/
 
 
 </style>
