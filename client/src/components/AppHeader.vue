@@ -15,7 +15,7 @@
                       <li>
                           <ul class="menus">
                               <li class="login">
-                                  <router-link to="#" data-toggle="modal">Accedi / Registrati</router-link>
+                                  <router-link to="/signInUp" data-toggle="modal">Accedi / Registrati</router-link>
                               </li>
                           </ul>
                       </li>

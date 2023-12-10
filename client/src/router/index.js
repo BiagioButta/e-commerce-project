@@ -18,6 +18,7 @@ import YouHaveSignIn from '../pages/notices/YouHaveSignIn.vue'
 import NotAuthorizate from '../pages/notices/NotAuthorizate.vue'
 import Seller from '../pages/seller/Seller.vue'
 import AddNewProduct from '../pages/seller/AddNewProduct.vue'
+import SignInUp from '../pages/SignInUp.vue'
 
 
 const router = createRouter({
@@ -67,6 +68,11 @@ const router = createRouter({
       path: '/register/',
       name: 'register',
       component: Register
+    },
+    {
+      path: '/signInUp/',
+      name: 'signInUp',
+      component: SignInUp
     },
     {
       path: '/seller/',

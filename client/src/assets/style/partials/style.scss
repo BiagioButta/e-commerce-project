@@ -13515,7 +13515,6 @@ small.form-text {
 
 /*--------------------- 4.19.Modals -------------------- */
 /* Modals */
-
 .modal-backdrop {
   background-color: #333;
 
@@ -13526,29 +13525,12 @@ small.form-text {
 
 .modal-body {
   padding: 0;
-
-  .close {
-    position: absolute;
-    right: 1.5rem;
-    top: 1.5rem;
-  }
+  
 }
 
 .modal-content {
   border: none;
   box-shadow: 5px 10px 16px rgba(51, 51, 51, 0.05), -5px 10px 16px rgba(51, 51, 51, 0.05);
-}
-
-.close {
-  font-weight: normal;
-  font-size: 1.8rem;
-  color: #666666;
-  opacity: 1;
-  transition: all .3s;
-
-  &:hover, &:focus {
-    color: #fcb941;
-  }
 }
 
 @media screen and (min-width: 768px) {
