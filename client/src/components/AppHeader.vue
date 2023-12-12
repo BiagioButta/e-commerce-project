@@ -31,9 +31,7 @@
                           <span class="sr-only">Toggle mobile menu</span>
                           <i class="icon-bars"></i>
                       </button>
-                      <a href="index.html" class="logo">
-                          <h1>Logo</h1>
-                      </a>
+                      <router-link to="/"><h1>Logo</h1></router-link>
                   </div><!-- End .col-xl-3 col-xxl-2 -->
               
                   <div class="col col-lg-9 col-xl-9 col-xxl-10 header-middle-right">
@@ -91,11 +89,11 @@
                                   </div><!-- End .cart-dropdown -->
 
                                   <div class="dropdown cart-dropdown">
-                                      <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                                      <router-link to="/cart" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                         <i class="fa-solid fa-cart-shopping"></i>
                                           <span class="cart-count">{{ cart.length }}</span>
                                           <span class="cart-txt">Carrello</span>
-                                      </a>
+                                      </router-link>
                                       <div class="dropdown-menu dropdown-menu-right">
                                           <div class="dropdown-cart-products">
                                             <div class="dropdown-cart-products">

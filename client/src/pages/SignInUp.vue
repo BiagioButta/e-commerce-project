@@ -16,7 +16,7 @@
                             </ul>
                             <div class="tab-content" id="tab-content-5">
                                 <div :class="{ 'tab-pane': true, 'fade': true, 'show': activeTab === 'signin-tab', 'active': activeTab === 'signin-tab' }">
-                                    <form action="#">
+                                    <form @submit.prevent="login">
                                         <div class="form-group">
                                             <label for="singin-email">Nome Utente o Email *</label>
                                             <input type="text" class="form-control" id="singin-email" name="singin-email" required>
@@ -51,7 +51,7 @@
                                                 </a>
                                             </div><!-- End .col-6 -->
                                             <div class="col-sm-6">
-                                                <a href="#" class="btn btn-login btn-f">
+                                                <a href="#" @click.prevent="loginWithGoogle" class="btn btn-login btn-f">
                                                     <i class="fa-brands fa-facebook"></i>
                                                     Accedi con Facebook
                                                 </a>
