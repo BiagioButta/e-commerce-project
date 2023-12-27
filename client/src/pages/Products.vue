@@ -705,21 +705,28 @@ import { useLocalStorage } from "@vueuse/core";
             id: {
                 required: true,
                 type: String
+            },
+            title: {
+                required: true,
+                type: String
             }
         },
         computed: {
+            categoryTitle (){
+                return this.title
+            },
             category () {
                 return this.getDataFromDB.categories.find(category => category.id === this.id)
             },
             categories(){
                 return this.getDataFromDB.categories
             },
-            categoryTitle(){
-                if(this.categories){
-                    const category = this.categories.find(category => category.id === this.id)
-                    return category.title
-                }
-            },
+            // categoryTitle(){
+            //     if(this.categories){
+            //         const category = this.categories.find(category => category.id === this.id)
+            //         return category.title
+            //     }
+            // },
             allBrands() {
                 return this.getDataFromDB.brandsFilterOption;
             },

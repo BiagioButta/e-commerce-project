@@ -10407,9 +10407,6 @@ a {
 }
 
 .product-price {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   flex-flow: wrap;
   font-weight: 400;
   font-size: 1.6rem;
@@ -10737,7 +10734,7 @@ a {
   font-size: 1.6rem;
 
   &:before {
-    content: '\f234';
+    content: '\2665';
   }
 }
 
@@ -14419,12 +14416,9 @@ button:focus {
   }
 
   .btn-wishlist:before {
-    content: '\f234';
+    content: '\2665';
   }
 
-  .btn-compare:before {
-    content: '\f2d0';
-  }
 
   .btn-wishlist, .btn-compare {
     border: none;
@@ -20600,6 +20594,8 @@ button:focus {
 }
 
 .banner-content-stretch {
+  background-color: #cccccc;
+  height: 96.5%;
   .banner-content {
     top: 10rem;
     bottom: 4rem;
@@ -20812,7 +20808,7 @@ button:focus {
 
 .widget-deals {
   .product-image {
-    width: unset;
+    width: 200px;
   }
 
   .product-media {
@@ -20865,7 +20861,7 @@ button:focus {
 
 .btn-wishlist {
   &:hover:before, &:focus:before {
-    content: '\f233';
+    content: '\2665';
   }
 }
 

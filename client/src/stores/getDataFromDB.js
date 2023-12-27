@@ -480,7 +480,7 @@ export const useGetDataFromDB = defineStore('getDataFromDB', {
         this.productsSortByDiscount = []
         const productsCollection = collection(db, "Products");
         
-        onSnapshot(query(productsCollection, where("discount", ">", 0), orderBy("discount", "desc"), limit(25)), async (snapshot) => {
+        onSnapshot(query(productsCollection, where("discount", ">", 0), orderBy("discount", "desc"), limit(3)), async (snapshot) => {
           snapshot.docChanges().forEach(async (change) => {
             const product = change.doc.data();
             const detailsCollection = collection(change.doc.ref, "details");
@@ -514,7 +514,7 @@ export const useGetDataFromDB = defineStore('getDataFromDB', {
         this.productsSortBySales = []
         const productsCollection = collection(db, "Products");
 
-        onSnapshot(query(productsCollection, where("nSales", ">", 0), orderBy("nSales", "desc"), limit(25)), async (snapshot) => {
+        onSnapshot(query(productsCollection, where("nSales", ">", 0), orderBy("nSales", "desc"), limit(5)), async (snapshot) => {
           snapshot.docChanges().forEach(async (change) => {
             const product = change.doc.data();
             const detailsCollection = collection(change.doc.ref, "details");
